@@ -1,0 +1,133 @@
+body {
+	margin: 0;
+	overflow: hidden;
+	font-family: "Nunito Sans", sans-serif;
+	font-size: small;
+}
+
+.right-bar {
+	background-color: #1c1842;
+	width: 10vw;
+	display: flex;
+	padding: 15px;
+	justify-content: space-between;
+	flex-direction: column;
+}
+
+.users {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+p {
+	color: white;
+	width: 30%;
+	margin: 0;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: transparent;
+	margin: 15px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+.messages-container {
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	overflow-x: hidden;
+	gap: 15px;
+	height: 90vh;
+	padding: 15px;
+}
+
+.messages-container > p {
+	background-color: #1c1842;
+	padding: 15px;
+	border-radius: 20px;
+}
+
+.messages-container > .own-message {
+	background-color: #635bb4;
+	align-self: flex-end;
+	justify-self: flex-end;
+}
+
+.container {
+	display: flex;
+	height: 100vh;
+	flex-direction: row;
+}
+
+.messages-input-container {
+	width: 100vw;
+	display: flex;
+	background-color: #302b63;
+	justify-content: space-between;
+	flex-direction: column;
+}
+
+.input-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 15px;
+}
+
+.icon-container {
+	background: #ffffff;
+	border-radius: 50%;
+	overflow: hidden;
+	padding: 5px;
+	align-items: center;
+	cursor: pointer;
+	justify-content: center;
+}
+
+.icon-container:hover {
+	background-color: #cecece;
+}
+
+.text-input {
+	width: 95%;
+	background-color: transparent;
+	border-width: 1px;
+	border-color: white;
+	border-radius: 20px;
+	color: white;
+	padding: 10px;
+}
+
+.text-input::placeholder {
+	color: white;
+}
+
+.button {
+	background-color: #302b63;
+	border-width: 0;
+	border-radius: 20px;
+	padding: 10px;
+	color: white;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: #484381;
+}
