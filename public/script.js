@@ -1,3 +1,6 @@
+const userName = prompt("Digame un nombre de usuario")
+sessionStorage.setItem("userName", userName)
+
 const ws = new WebSocket("ws://192.168.100.15:3000")
 const isConnectionOpen = ws.OPEN === ws.readyState
 
@@ -5,21 +8,54 @@ const textInput = document.getElementById("text-input")
 const submitButton = document.getElementById("submit-button")
 const messageList = document.getElementById("messages")
 
+const appendParagraphs = array => {
+	array.forEach(i => {
+		const {id, message, user, date} = i
+		const sessionUser = sessionStorage.getItem("userName")
+
+		const newMessageContainer = document.createElement("div")
+		newMessageContainer.className = "message other-message"
+		if (user === sessionUser) {
+			newMessageContainer.className = "message own-message"
+		}
+
+		const newHeaderMessage = document.createElement("div")
+		newHeaderMessage.className = "row-header"
+
+		const newUser = document.createElement("p")
+		const newDate = document.createElement("p")
+		const newParagraph = document.createElement("p")
+
+		newUser.innerHTML = user
+		newUser.className = "message-user"
+		newParagraph.innerHTML = message
+		newParagraph.value = id
+		newDate.innerHTML = `${date.split(" ")[1]}`
+
+		newHeaderMessage.appendChild(newUser)
+		newHeaderMessage.appendChild(newDate)
+		newMessageContainer.appendChild(newHeaderMessage)
+		newMessageContainer.appendChild(newParagraph)
+		messageList.appendChild(newMessageContainer)
+	})
+}
+
 if (!isConnectionOpen) {
 	ws.addEventListener("open", () => {
 		console.log("Conexión WebSocket abierta")
 	})
-	// Manejar los mensajes WebSocket entrantes (opcional)
+
 	ws.addEventListener("message", event => {
+		console.log("mensaje del server", event)
 		const {data} = event
-		console.log("mensaje del server", data)
-		const {message, date, user} = JSON.parse(data)// TODO hacer date
-		const newParagraph = document.createElement("p")
-		newParagraph.innerHTML = message
-		if (user === "tadeo") {
-			newParagraph.className = "own-message"
-		}
-		messageList.appendChild(newParagraph)
+		const messages = JSON.parse(data)
+		const arrayChilds = [...messageList.children].map(i => {
+			return i.children[1]
+		})
+		const filteredMessages = messages.filter((i, index) => {
+			return i.id !== arrayChilds[index]?.value
+		})
+		appendParagraphs(filteredMessages)
 	})
 }
 
@@ -30,18 +66,28 @@ textInput.addEventListener("keypress", event => {
 	}
 })
 
-submitButton.addEventListener("click", event => {
-	event.preventDefault()
-	sendMessage()
-})
+submitButton.addEventListener("click", sendMessage)
+
+const i18nOptions = {
+	timeZone: "America/Argentina/Buenos_Aires",
+	day: "2-digit",
+	month: "2-digit",
+	year: "numeric",
+	hour: "2-digit",
+	minute: "2-digit"
+}
+const dateText = new Intl.DateTimeFormat("es-AR", i18nOptions).format(new Date())
 
 const sendMessage = () => {
 	const message = textInput.value
-	textInput.value = ""
 	if (message.length === 0) {
 		return alert("Ingresá texto por favor")
 	}
 	textInput.value = ""
-	const messageParam = JSON.stringify({message, date: new Date().toISOString(), user: "Tadeo"})
+	const messageParam = JSON.stringify({
+		message,
+		date: dateText(),
+		user: sessionStorage.getItem("userName")
+	})
 	ws.send(messageParam)
 }
