@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Chat App</title>
+	<link href="styleChat.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div class="container">
+		<div class="right-bar">
+			<div class="users" id="users"></div>
+			<input type="button" class="button" id="sign-out" value="Cerrar sesión" />
+		</div>
+		<div class="messages-input-container">
+			<div class="chat-container" id="messages"></div>
+			<div class="input-container">
+				<input type="text" class="text-input" id="text-input" placeholder="Mensaje" autofocus />
+				<div class="icon-container" id="submit-button">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-send" width="30"
+						height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9e9e9e" fill="none"
+						stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+						<path d="M10 14l11 -11" />
+						<path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" />
+					</svg>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="scriptChat.js"></script>
+</body>
+
+</html>
