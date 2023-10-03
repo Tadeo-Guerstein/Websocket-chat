@@ -78,6 +78,7 @@ const setMessages = messages => {
 		newMessageContainer.appendChild(newParagraph)
 		messageList.appendChild(newMessageContainer)
 	})
+	messageList.scrollTop = messageList.scrollHeight;
 }
 
 const setUsers = users => {
